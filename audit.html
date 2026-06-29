@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VANTORA Product Design Audit</title>
+  <style>
+    :root {
+      --ink: #071713;
+      --green: #008f62;
+      --red: #e11d2e;
+      --muted: #5f6d69;
+      --line: #dce7e2;
+      --paper: #f7faf8;
+      --white: #fff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Arial, "Microsoft YaHei", sans-serif;
+      line-height: 1.75;
+    }
+    .wrap {
+      width: min(1080px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 64px 0;
+    }
+    header {
+      padding: 74px 0 46px;
+      background: var(--ink);
+      color: var(--white);
+    }
+    header .wrap { padding: 0; }
+    .eyebrow {
+      color: #72d2ac;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    h1 {
+      max-width: 10em;
+      margin: 18px 0 16px;
+      font-size: clamp(42px, 6vw, 72px);
+      line-height: 1;
+    }
+    h2 {
+      margin: 0 0 18px;
+      font-size: clamp(28px, 3.4vw, 44px);
+      line-height: 1.1;
+    }
+    h3 {
+      margin: 0 0 8px;
+      font-size: 20px;
+      line-height: 1.25;
+    }
+    p { margin: 0; color: var(--muted); }
+    header p { color: rgba(255,255,255,.76); max-width: 760px; }
+    section {
+      margin-top: 28px;
+      padding: 34px;
+      border: 1px solid var(--line);
+      background: var(--white);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .card {
+      padding: 24px;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+    .status {
+      display: inline-block;
+      margin-bottom: 14px;
+      padding: 5px 10px;
+      background: #e8f4ef;
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 900;
+    }
+    ol, ul { margin: 0; padding-left: 1.2em; color: var(--muted); }
+    li + li { margin-top: 10px; }
+    .warning {
+      border-color: rgba(225,29,46,.28);
+      background: #fff8f8;
+    }
+    .warning h2 { color: var(--red); }
+    code {
+      padding: 2px 5px;
+      background: #eef3f1;
+      color: var(--ink);
+    }
+    @media (max-width: 760px) {
+      .grid { grid-template-columns: 1fr; }
+      section { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="eyebrow">Product Design Audit</div>
+      <h1>VANTORA 网站审查</h1>
+      <p>基于当前页面结构 信息层级 多语言 图标系统和机构官网表达，对外部资方 日本合作企业 海外设备企业的阅读动线进行审查。</p>
+    </div>
+  </header>
+  <main class="wrap">
+    <section class="warning">
+      <h2>截图说明</h2>
+      <p>当前页面是 <code>file://</code> 本地路径，Product Design 浏览器截图被安全策略拦截。因此本次报告基于页面源码结构和设计系统审查，未包含截图证据。</p>
+    </section>
+    <section>
+      <h2>页面健康度</h2>
+      <div class="grid">
+        <div class="card"><span class="status">Good</span><h3>Hero and navigation</h3><p>机构官网感已经建立。首屏信息略多，建议让核心一句话更突出。</p></div>
+        <div class="card"><span class="status">Strong</span><h3>Core value</h3><p>市场入口 × 本地执行 = 长期资产 是最强记忆点，但深色模块信息密度偏高。</p></div>
+        <div class="card"><span class="status">Clear</span><h3>Access areas</h3><p>项目 电力 需求 执行 设备 资本六层入口清楚，适合资方快速判断。</p></div>
+        <div class="card"><span class="status">Important</span><h3>Capital cycle</h3><p>项目导入到资本回收的闭环应继续强化，尤其是并购和退出策略。</p></div>
+      </div>
+    </section>
+    <section>
+      <h2>优先修正点</h2>
+      <ol>
+        <li>把深色核心价值模块拆轻，公式保留，能力图标区增加呼吸感。</li>
+        <li>厂家逻辑改成设备流程链：设备 认证 工程接口 O&M 融资适配。</li>
+        <li>底部 CTA 分成三类入口：资本方 设备厂家 项目方。</li>
+        <li>日本生态目录文字再压缩 20%，让日本企业阅读更舒服。</li>
+        <li>继续保持代表性生态免责声明，避免合作关系表述风险。</li>
+      </ol>
+    </section>
+    <section>
+      <h2>建议下一步</h2>
+      <ul>
+        <li>先改核心价值模块和厂家设备链，这两处最影响第一印象。</li>
+        <li>再改底部转化入口，让资方 厂家 项目方各自找到自己的入口。</li>
+        <li>最后用本地服务器方式打开页面，再做真实截图验证。</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>

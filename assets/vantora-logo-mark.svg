@@ -1,0 +1,8 @@
+<svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">VANTORA mark</title>
+  <desc id="desc">VANTORA simple V mark operated by UPEX</desc>
+  <rect x="20" y="20" width="120" height="120" fill="#071713"/>
+  <path d="M43 44L80 116L117 44" stroke="#FFFFFF" stroke-width="14" stroke-linecap="square" stroke-linejoin="miter"/>
+  <path d="M82 116L122 44" stroke="#009B68" stroke-width="9" stroke-linecap="square"/>
+  <path d="M40 132H120" stroke="#E11D2E" stroke-width="7"/>
+</svg>

@@ -1,0 +1,26 @@
+{
+  "updatedAt": "2026-06-24T00:00:00+09:00",
+  "items": [
+    {
+      "id": "2026-06-24-market-update",
+      "status": "published",
+      "date": "2026.06.24",
+      "sourceLabel": "VANTORA Market Note",
+      "sourceUrl": "",
+      "translations": {
+        "zh": {
+          "title": "每日观察日本能源 电网 储能与数据中心变化",
+          "text": "VANTORA 将市场动态整理成可判断的信号 帮助资本和产业伙伴更快理解日本基础设施机会"
+        },
+        "ja": {
+          "title": "電力 系統 蓄電池 データセンターの動きを日々確認",
+          "text": "VANTORA は市場の変化を事業判断に使いやすいシグナルとして整理し 日本での参入検討を支援します。"
+        },
+        "en": {
+          "title": "Daily signals across Japan energy, grid, BESS and data centers",
+          "text": "VANTORA turns market movement into practical signals for capital and industrial partners assessing infrastructure opportunities in Japan."
+        }
+      }
+    }
+  ]
+}
