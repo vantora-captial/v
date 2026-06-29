@@ -78,6 +78,16 @@
       text-transform: uppercase;
     }
 
+    .utility-brand {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .utility-brand img {
+      width: 112px;
+      height: auto;
+    }
+
     .nav {
       min-height: 76px;
       display: flex;
@@ -1944,7 +1954,7 @@
   <header>
     <div class="utility">
       <div class="wrap utility-inner">
-        <span data-i18n="utilityLabel">Operating company UPEX</span>
+        <span class="utility-brand" data-i18n-html="utilityLabel"><img src="assets/vantora-logo.svg" alt="VANTORA"></span>
         <div class="utility-links">
           <a href="#global" data-i18n="utilityInvestors">For Investors</a>
           <a href="#ecosystem" data-i18n="utilityPartners">For Partners</a>
@@ -2247,7 +2257,7 @@
   <footer>
     <div class="wrap footer-row">
       <img class="footer-logo" src="assets/vantora-logo.svg" alt="VANTORA">
-      <span data-i18n="footerOperator">Operating company UPEX</span>
+      <span data-i18n="footerOperator">VANTORA Platform</span>
       <span data-i18n="footerTagline">Connecting capital, power and infrastructure.</span>
     </div>
   </footer>
@@ -2256,7 +2266,7 @@
       en: {
         title: "VANTORA | Japan Infrastructure Access Platform",
         description: "VANTORA connects capital, equipment, supply chains and Japan execution into long-term infrastructure assets.",
-        utilityLabel: "Operating company UPEX", utilityInvestors: "For Investors", utilityPartners: "For Partners", utilityOfficial: "Official Site", utilityContact: "Contact",
+        utilityLabel: "<img src=\"assets/vantora-logo.svg\" alt=\"VANTORA\">", utilityInvestors: "For Investors", utilityPartners: "For Partners", utilityOfficial: "Official Site", utilityContact: "Contact",
         navWhat: "What", navValue: "Value", navJapan: "Japan", navAccess: "Access", navEcosystem: "Ecosystem", navGlobal: "Global", navGovernance: "Governance", navOfficial: "Official Site",
         heroEyebrow: "Infrastructure Access Platform",
         heroTitle: "Japan Infrastructure Access",
@@ -2358,12 +2368,12 @@
         ctaRoute1Title: "For Capital", ctaRoute1Text: "Investment mandate, SPV finance and asset recycling",
         ctaRoute2Title: "For Manufacturers", ctaRoute2Text: "Equipment entry, certification and project integration",
         ctaRoute3Title: "For Projects", ctaRoute3Text: "Land, grid, demand and early feasibility review",
-        ctaButton: "Contact VANTORA", footerOperator: "Operating company UPEX", footerTagline: "Connecting capital, power and infrastructure."
+        ctaButton: "Contact VANTORA", footerOperator: "VANTORA Platform", footerTagline: "Connecting capital, power and infrastructure."
       },
       zh: {
         title: "VANTORA | 日本基础设施入口平台",
         description: "VANTORA 连接资本 设备 供应链与日本执行体系 形成长期基础设施资产路径。",
-        utilityLabel: "运营公司 UPEX", utilityInvestors: "面向投资机构", utilityPartners: "面向合作伙伴", utilityOfficial: "官方平台", utilityContact: "联系",
+        utilityLabel: "<img src=\"assets/vantora-logo.svg\" alt=\"VANTORA\">", utilityInvestors: "面向投资机构", utilityPartners: "面向合作伙伴", utilityOfficial: "官方平台", utilityContact: "联系",
         navWhat: "定位", navValue: "价值", navJapan: "日本", navAccess: "入口", navEcosystem: "生态", navGlobal: "全球", navGovernance: "治理", navOfficial: "官方平台",
         heroEyebrow: "基础设施入口平台",
         heroTitle: "日本基础设施入口",
@@ -2465,12 +2475,12 @@
         ctaRoute1Title: "资本方入口", ctaRoute1Text: "投资委托 SPV 融资与资产回收",
         ctaRoute2Title: "厂家入口", ctaRoute2Text: "设备导入 认证与项目集成",
         ctaRoute3Title: "项目方入口", ctaRoute3Text: "土地 电力 需求与前期可行性",
-        ctaButton: "联系 VANTORA", footerOperator: "运营公司 UPEX", footerTagline: "连接资本 电力与基础设施"
+        ctaButton: "联系 VANTORA", footerOperator: "VANTORA 平台", footerTagline: "连接资本 电力与基础设施"
       },
       ja: {
         title: "VANTORA | 日本インフラ事業化プラットフォーム",
         description: "VANTORA は海外資本 生産能力 サプライチェーンを日本の実行力とつなぎ 長期インフラ資産化を支援します。",
-        utilityLabel: "運営会社 UPEX", utilityInvestors: "投資家の皆さまへ", utilityPartners: "パートナーの皆さまへ", utilityOfficial: "公式サイト", utilityContact: "お問い合わせ",
+        utilityLabel: "<img src=\"assets/vantora-logo.svg\" alt=\"VANTORA\">", utilityInvestors: "投資家の皆さまへ", utilityPartners: "パートナーの皆さまへ", utilityOfficial: "公式サイト", utilityContact: "お問い合わせ",
         navWhat: "役割", navValue: "価値", navJapan: "日本", navAccess: "参入", navEcosystem: "エコシステム", navGlobal: "グローバル", navGovernance: "ガバナンス", navOfficial: "公式サイト",
         heroEyebrow: "インフラ事業化プラットフォーム",
         heroTitle: "日本で事業化する入口",
@@ -2572,7 +2582,7 @@
         ctaRoute1Title: "資本向け", ctaRoute1Text: "投資 mandate SPV 金融 資産回収",
         ctaRoute2Title: "メーカー向け", ctaRoute2Text: "設備導入 認証 案件統合",
         ctaRoute3Title: "案件向け", ctaRoute3Text: "土地 電力 需要 初期実現性",
-        ctaButton: "VANTORA へ相談", footerOperator: "運営会社 UPEX", footerTagline: "資本 電力 インフラをつなぐ"
+        ctaButton: "VANTORA へ相談", footerOperator: "VANTORA Platform", footerTagline: "資本 電力 インフラをつなぐ"
       }
     };
 
