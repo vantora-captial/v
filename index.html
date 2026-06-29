@@ -88,6 +88,32 @@
 
     .brand img { width: 156px; }
 
+    .brand-chip,
+    .brand-inline {
+      display: inline-flex;
+      align-items: center;
+      vertical-align: middle;
+    }
+
+    .brand-chip {
+      gap: 10px;
+    }
+
+    .brand-chip img {
+      width: 118px;
+      height: auto;
+    }
+
+    .brand-inline {
+      margin-right: 8px;
+      transform: translateY(-1px);
+    }
+
+    .brand-inline img {
+      width: 104px;
+      height: auto;
+    }
+
     .nav-links {
       display: flex;
       align-items: center;
@@ -1944,9 +1970,9 @@
     <section id="what" class="section">
       <div class="wrap">
         <div class="section-head grid">
-          <p class="eyebrow" data-i18n="whatEyebrow">What VANTORA Does</p>
+          <p class="eyebrow" data-i18n-html="whatEyebrow">What VANTORA Does</p>
           <h2 data-i18n="whatTitle">From access to execution.</h2>
-          <p data-i18n="whatLead">VANTORA structures Japan market access for capital, manufacturers and supply chain partners entering energy and digital infrastructure.</p>
+          <p data-i18n-html="whatLead">VANTORA structures Japan market access for capital, manufacturers and supply chain partners entering energy and digital infrastructure.</p>
         </div>
         <div class="process-line" aria-label="VANTORA process">
           <article class="process-step"><span class="num">01</span><h3 data-i18n="whatCard1Title">Access</h3><p data-i18n="whatCard1Text">Clarify entry points across projects, power, demand, equipment and capital.</p></article>
@@ -1960,7 +1986,7 @@
     <section id="value" class="section value-section">
       <div class="wrap">
         <div class="value-panel">
-          <p class="eyebrow" data-i18n="valueEyebrow">VANTORA Core Value</p>
+          <p class="eyebrow" data-i18n-html="valueEyebrow">VANTORA Core Value</p>
           <div class="value-statement" data-i18n-html="valueStatement">Capital and technology are not scarce. The rare capability is turning them into <span class="accent">long-term assets</span>.</div>
           <div class="value-formula" aria-label="VANTORA value formula">
             <div class="value-box"><b data-i18n="valueMarket">Market Access</b><span data-i18n="valueMarketText">Projects Power Demand Capital</span></div>
@@ -2181,7 +2207,7 @@
       <div class="wrap grid cta-grid">
         <h2 data-i18n="ctaTitle">Bring capital, equipment or supply chain capability.</h2>
         <div class="cta-copy">
-          <p data-i18n="ctaText">VANTORA will clarify Japan market fit, execution path and capital structure.</p>
+          <p data-i18n-html="ctaText">VANTORA will clarify Japan market fit, execution path and capital structure.</p>
           <div class="cta-routes">
             <a class="cta-route" href="mailto:info@upex.jp?subject=Capital%20Mandate%20for%20VANTORA"><span class="icon-badge"><svg><use href="#icon-capital"></use></svg></span><span><b data-i18n="ctaRoute1Title">For Capital</b><span data-i18n="ctaRoute1Text">Investment mandate, SPV finance and asset recycling</span></span></a>
             <a class="cta-route" href="mailto:info@upex.jp?subject=Equipment%20Entry%20for%20VANTORA"><span class="icon-badge"><svg><use href="#icon-factory"></use></svg></span><span><b data-i18n="ctaRoute2Title">For Manufacturers</b><span data-i18n="ctaRoute2Text">Equipment entry, certification and project integration</span></span></a>
@@ -2215,14 +2241,14 @@
         inst1Title: "For Capital", inst1Text: "Find executable, financeable and recyclable infrastructure opportunities.",
         inst2Title: "For Manufacturers", inst2Text: "Bring Japanese-made and overseas equipment into project pathways.",
         inst3Title: "For Projects", inst3Text: "Review land, grid, demand and early feasibility before execution.",
-        whatEyebrow: "Platform Role",
+        whatEyebrow: "<span class=\"brand-chip\"><img src=\"assets/vantora-logo.svg\" alt=\"VANTORA\"><span>Platform Role</span></span>",
         whatTitle: "Build the path before the project",
-        whatLead: "VANTORA helps capital, manufacturers and industrial partners understand where to enter, who to work with and how opportunities become assets.",
+        whatLead: "<span class=\"brand-inline\"><img src=\"assets/vantora-logo.svg\" alt=\"VANTORA\"></span>helps capital, manufacturers and industrial partners understand where to enter, who to work with and how opportunities become assets.",
         whatCard1Title: "Access", whatCard1Text: "Identify the right entry point across projects, power, demand, equipment and capital.",
         whatCard2Title: "Structure", whatCard2Text: "Turn commercial, engineering, governance and finance conditions into one decision path.",
         whatCard3Title: "Execution", whatCard3Text: "Coordinate local relationships, EPC, operation and delivery resources.",
         whatCard4Title: "Assets", whatCard4Text: "Move opportunities toward financeable, operable and recyclable infrastructure assets.",
-        valueEyebrow: "VANTORA Core Value",
+        valueEyebrow: "<span class=\"brand-chip\"><img src=\"assets/vantora-logo.svg\" alt=\"VANTORA\"><span>Core Value</span></span>",
         valueStatement: "Resources are available. The rare capability is organizing them into <span class=\"accent\">long-term assets</span>.",
         valueMarket: "Market Access", valueMarketText: "Projects Power Demand Capital",
         valueExecution: "Local Execution", valueExecutionText: "Relationships Engineering Operations Governance",
@@ -2302,7 +2328,7 @@
         gov3Title: "Certification", gov3Text: "Review equipment safety, grid standards, insurance and operating risk.",
         gov4Title: "Operation", gov4Text: "Define data handling, O&M responsibility, warranties and long-term reporting.",
         ctaTitle: "Start with the right entry point",
-        ctaText: "VANTORA helps clarify market fit, execution path and capital structure before resources move.",
+        ctaText: "<span class=\"brand-inline\"><img src=\"assets/vantora-logo-white.svg\" alt=\"VANTORA\"></span>helps clarify market fit, execution path and capital structure before resources move.",
         ctaRoute1Title: "For Capital", ctaRoute1Text: "Investment mandate, SPV finance and asset recycling",
         ctaRoute2Title: "For Manufacturers", ctaRoute2Text: "Equipment entry, certification and project integration",
         ctaRoute3Title: "For Projects", ctaRoute3Text: "Land, grid, demand and early feasibility review",
@@ -2322,14 +2348,14 @@
         inst1Title: "资本方入口", inst1Text: "寻找可执行 可融资 可回收的基础设施机会。",
         inst2Title: "厂家入口", inst2Text: "推动日本制与海外设备进入项目路径。",
         inst3Title: "项目方入口", inst3Text: "在执行前判断土地 电力 需求与前期可行性。",
-        whatEyebrow: "平台定位",
+        whatEyebrow: "<span class=\"brand-chip\"><img src=\"assets/vantora-logo.svg\" alt=\"VANTORA\"><span>平台定位</span></span>",
         whatTitle: "先建立路径 再推进项目",
-        whatLead: "VANTORA 帮助资本方 厂家和产业伙伴判断从哪里进入 与谁协同 以及如何把机会转化为资产。",
+        whatLead: "<span class=\"brand-inline\"><img src=\"assets/vantora-logo.svg\" alt=\"VANTORA\"></span>帮助资本方 厂家和产业伙伴判断从哪里进入 与谁协同 以及如何把机会转化为资产。",
         whatCard1Title: "入口", whatCard1Text: "识别项目 电力 需求 设备与资本的关键进入点。",
         whatCard2Title: "结构", whatCard2Text: "把商务 工程 治理与金融条件整理成判断路径。",
         whatCard3Title: "执行", whatCard3Text: "连接本地关系 EPC 运营与项目交付资源。",
         whatCard4Title: "资产", whatCard4Text: "让机会走向可融资 可运营 可回收的长期资产。",
-        valueEyebrow: "VANTORA 的核心价值",
+        valueEyebrow: "<span class=\"brand-chip\"><img src=\"assets/vantora-logo.svg\" alt=\"VANTORA\"><span>核心价值</span></span>",
         valueStatement: "资源从不稀缺 稀缺的是把资源组织成<span class=\"accent\">长期资产</span>的能力",
         valueMarket: "市场入口", valueMarketText: "项目 电力 需求 资本",
         valueExecution: "本地执行", valueExecutionText: "关系 工程 运营 治理",
@@ -2409,7 +2435,7 @@
         gov3Title: "认证", gov3Text: "审查设备安全 电网标准 保险与运营风险。",
         gov4Title: "运营", gov4Text: "明确数据处理 运维责任 质保与长期报告要求。",
         ctaTitle: "选择正确入口 开始判断",
-        ctaText: "VANTORA 协助在资源投入前判断市场适配 执行路径与资本结构。",
+        ctaText: "<span class=\"brand-inline\"><img src=\"assets/vantora-logo-white.svg\" alt=\"VANTORA\"></span>协助在资源投入前判断市场适配 执行路径与资本结构。",
         ctaRoute1Title: "资本方入口", ctaRoute1Text: "投资委托 SPV 融资与资产回收",
         ctaRoute2Title: "厂家入口", ctaRoute2Text: "设备导入 认证与项目集成",
         ctaRoute3Title: "项目方入口", ctaRoute3Text: "土地 电力 需求与前期可行性",
@@ -2429,14 +2455,14 @@
         inst1Title: "資本向け", inst1Text: "実行可能 資金調達可能 回収可能なインフラ機会を見極めます。",
         inst2Title: "メーカー向け", inst2Text: "日本製と海外設備を案件経路へ導入します。",
         inst3Title: "案件向け", inst3Text: "実行前に土地 電力 需要 初期実現性を確認します。",
-        whatEyebrow: "プラットフォームの役割",
+        whatEyebrow: "<span class=\"brand-chip\"><img src=\"assets/vantora-logo.svg\" alt=\"VANTORA\"><span>役割</span></span>",
         whatTitle: "案件化の前に道筋を整える",
-        whatLead: "VANTORA は日本企業と海外パートナーの間で 事業化に必要な相手 条件 実行経路を整理します。",
+        whatLead: "<span class=\"brand-inline\"><img src=\"assets/vantora-logo.svg\" alt=\"VANTORA\"></span>は日本企業と海外パートナーの間で 事業化に必要な相手 条件 実行経路を整理します。",
         whatCard1Title: "入口", whatCard1Text: "案件 電力 需要 設備 資本の接点を明確にします。",
         whatCard2Title: "設計", whatCard2Text: "商務 工程 ガバナンス 金融条件を判断しやすい形に整えます。",
         whatCard3Title: "実行", whatCard3Text: "現地関係 EPC 運用 案件実行リソースをつなぎます。",
         whatCard4Title: "資産化", whatCard4Text: "資金調達 運用 資本回収につながる長期資産化を支援します。",
-        valueEyebrow: "VANTORA の中核価値",
+        valueEyebrow: "<span class=\"brand-chip\"><img src=\"assets/vantora-logo.svg\" alt=\"VANTORA\"><span>中核価値</span></span>",
         valueStatement: "海外資本と産業能力を 日本の<span class=\"accent\">長期インフラ資産</span>へ組み立てる力",
         valueMarket: "市場参入", valueMarketText: "案件 電力 需要 資本",
         valueExecution: "現地実行", valueExecutionText: "関係 工程 運用 ガバナンス",
@@ -2516,7 +2542,7 @@
         gov3Title: "認証", gov3Text: "設備安全 系統基準 保険 運用リスクを確認します。",
         gov4Title: "運用", gov4Text: "データ取扱い O&M責任 保証 長期レポートを整理します。",
         ctaTitle: "最初の入口を一緒に整理する",
-        ctaText: "日本企業の視点で 市場適合性 実行経路 資本構造を確認します。",
+        ctaText: "<span class=\"brand-inline\"><img src=\"assets/vantora-logo-white.svg\" alt=\"VANTORA\"></span>は日本企業の視点で 市場適合性 実行経路 資本構造を確認します。",
         ctaRoute1Title: "資本向け", ctaRoute1Text: "投資 mandate SPV 金融 資産回収",
         ctaRoute2Title: "メーカー向け", ctaRoute2Text: "設備導入 認証 案件統合",
         ctaRoute3Title: "案件向け", ctaRoute3Text: "土地 電力 需要 初期実現性",
