@@ -12,6 +12,7 @@ on:
 permissions:
   contents: read
 
+# This workflow publishes only the public preview surface. It does not modify the production top branch.
 jobs:
   deploy-preview:
     runs-on: ubuntu-latest
