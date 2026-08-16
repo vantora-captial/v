@@ -71,7 +71,7 @@ test("chat payload sends at most the latest 12 messages including the new visito
   const payload = buildChatPayload(state, "latest-question");
   assert.equal(payload.messages.length, 12);
   assert.deepEqual(payload.messages.at(-1), { role: "user", content: "latest-question" });
-  assert.equal(payload.messages[0].content, "message-4");
+  assert.equal(payload.messages[0].content, "message-3");
   assert.equal(payload.sessionId, "session-12345678");
 });
 
