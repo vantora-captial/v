@@ -15,6 +15,26 @@ test("homepage loads the AI sales assets with the deployed production Worker hoo
   assert.match(html, /<script type="module" src="assets\/ai-sales\.js"><\/script>/);
 });
 
+test("homepage matches the approved Vantora public redesign contract", () => {
+  assert.match(html, /Vantora/);
+  assert.match(html, /Powered by UPEX Tokyo/);
+  assert.match(html, /Japan Opportunities\. Local Execution\. Global Perspective\./);
+  assert.match(html, /Discuss Your Strategy/);
+  assert.match(html, /Explore Selected Opportunities/);
+  assert.match(html, /id="who-we-work-with"/);
+  assert.match(html, /id="what-we-do"/);
+  assert.match(html, /id="opportunities"/);
+  assert.match(html, /id="why-vantora"/);
+  assert.match(html, /id="experience"/);
+  assert.match(html, /id="insights"/);
+  assert.match(html, /id="contact"/);
+  assert.match(html, /<option value="en">EN<\/option>/);
+  assert.match(html, /<option value="zh">中文<\/option>/);
+  assert.match(html, /<option value="ja">日本語<\/option>/);
+  assert.doesNotMatch(html, /174K LNG Carriers/);
+  assert.doesNotMatch(html, /Tell Us Your Mandate/);
+});
+
 test("public frontend source contains no server secret identifiers or API keys", () => {
   const publicSource = `${html}\n${js}\n${css}`;
   for (const forbidden of ["OPENAI_API_KEY", "RESEND_API_KEY", "Bearer sk-", "sk-proj-"]) {
