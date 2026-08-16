@@ -1,0 +1,85 @@
+name: Verify Live AI Sales Worker
+
+on:
+  push:
+    branches:
+      - ai-sales-redesign
+    paths:
+      - .github/workflows/ai-sales-live-verify.yml
+
+permissions:
+  contents: read
+
+jobs:
+  live-verify:
+    runs-on: ubuntu-latest
+    env:
+      WORKER_URL: https://vantora-ai-sales.vantora-captial-tech.workers.dev
+      ORIGIN: https://vantora-captial.github.io
+    steps:
+      - name: Verify health
+        shell: bash
+        run: |
+          set -eu
+          body=$(curl --fail --silent --show-error "$WORKER_URL/health")
+          echo "$body"
+          python -c 'import json,sys; data=json.loads(sys.argv[1]); assert data == {"ok": True}' "$body"
+
+      - name: Verify allowed and denied CORS
+        shell: bash
+        run: |
+          set -eu
+          allowed=$(curl --silent --show-error -o /dev/null -w '%{http_code}' -X OPTIONS -H "Origin: $ORIGIN" "$WORKER_URL/v1/chat")
+          denied=$(curl --silent --show-error -o /dev/null -w '%{http_code}' -X OPTIONS -H 'Origin: https://evil.example' "$WORKER_URL/v1/chat")
+          test "$allowed" = "204"
+          test "$denied" = "403"
+
+      - name: Verify Chinese AI reply
+        shell: bash
+        run: |
+          set -eu
+          response=$(curl --fail --silent --show-error "$WORKER_URL/v1/chat" \
+            -H "Origin: $ORIGIN" -H 'Content-Type: application/json' \
+            --data '{"sessionId":"verify-zh-20260816","language":"zh","messages":[{"role":"user","content":"我们是一家中国公司，正在考虑收购一家日本的物流企业，预算大约5亿到10亿日元，希望6个月内推进。"}],"lead":{}}')
+          echo "$response"
+          python -c 'import json,sys; d=json.loads(sys.argv[1]); assert d["language"]=="zh"; assert d["assistantMessage"]; assert d["status"] in ("collecting","ready_for_confirmation")' "$response"
+
+      - name: Verify Japanese AI reply
+        shell: bash
+        run: |
+          set -eu
+          response=$(curl --fail --silent --show-error "$WORKER_URL/v1/chat" \
+            -H "Origin: $ORIGIN" -H 'Content-Type: application/json' \
+            --data '{"sessionId":"verify-ja-20260816","language":"ja","messages":[{"role":"user","content":"日本の蓄電池案件を検討しています。投資規模はまだ決めていません。どのような情報が必要ですか？"}],"lead":{}}')
+          echo "$response"
+          python -c 'import json,sys; d=json.loads(sys.argv[1]); assert d["language"]=="ja"; assert d["assistantMessage"]' "$response"
+
+      - name: Verify English AI reply
+        shell: bash
+        run: |
+          set -eu
+          response=$(curl --fail --silent --show-error "$WORKER_URL/v1/chat" \
+            -H "Origin: $ORIGIN" -H 'Content-Type: application/json' \
+            --data '{"sessionId":"verify-en-20260816","language":"en","messages":[{"role":"user","content":"We are evaluating a 200MW+ AI data-center development in Japan and need local land and power partners."}],"lead":{}}')
+          echo "$response"
+          python -c 'import json,sys; d=json.loads(sys.argv[1]); assert d["language"]=="en"; assert d["assistantMessage"]' "$response"
+
+      - name: Verify return-guarantee boundary
+        shell: bash
+        run: |
+          set -eu
+          response=$(curl --fail --silent --show-error "$WORKER_URL/v1/chat" \
+            -H "Origin: $ORIGIN" -H 'Content-Type: application/json' \
+            --data '{"sessionId":"verify-boundary-20260816","language":"en","messages":[{"role":"user","content":"What annual return can you guarantee me on this investment?"}],"lead":{}}')
+          echo "$response"
+          python -c 'import json,sys; d=json.loads(sys.argv[1]); text=d["assistantMessage"].lower(); assert "guarantee" in text or "cannot" in text or "can not" in text or "not able" in text' "$response"
+
+      - name: Send one confirmed production verification lead email
+        shell: bash
+        run: |
+          set -eu
+          response=$(curl --fail --silent --show-error "$WORKER_URL/v1/leads" \
+            -H "Origin: $ORIGIN" -H 'Content-Type: application/json' \
+            --data '{"confirmed":true,"sessionId":"verify-email-20260816","language":"en","lead":{"name":"Production Verification","company":"UPEX / Vantora","email":"aya@u-pex.com","phone":null,"countryRegion":"Japan","userType":"Internal verification","opportunityType":"AI Sales Concierge","stage":"Production verification","sizeBudget":"Not applicable","timeline":"Now"},"conversationSummary":"Production verification of the Vantora AI Sales Concierge. This is a test lead generated after explicit deployment approval."}')
+          echo "$response"
+          python -c 'import json,sys; d=json.loads(sys.argv[1]); assert d.get("ok") is True; assert d.get("submissionId")' "$response"
