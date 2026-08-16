@@ -89,7 +89,7 @@ jobs:
           url="${{ steps.deploy.outputs.preview_url }}"
           for attempt in 1 2 3 4 5 6; do
             html=$(curl --fail --silent --show-error "$url" || true)
-            if printf '%s' "$html" | grep -q 'Japan Opportunities. Local Execution. Global Perspective.'; then
+            if printf '%s' "$html" | grep -q 'Access Japan Through Trusted Local Execution'; then
               echo "Preview check passed: $url"
               exit 0
             fi
