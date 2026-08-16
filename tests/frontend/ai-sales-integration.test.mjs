@@ -49,6 +49,14 @@ test("mobile typography is restrained for English, Chinese, and Japanese", () =>
   assert.match(html, /html\[lang="zh"\] \.hero h1,html\[lang="ja"\] \.hero h1/);
 });
 
+test("hero and selected opportunities use the approved image strategy", () => {
+  assert.doesNotMatch(html, /assets\/photos\/grid-substation\.jpg/);
+  assert.match(html, /Marunouchi\.jpg/);
+  assert.match(html, /LNG_Carrier\.jpg/);
+  assert.match(html, /TSUBAME_3\.0_PA075096\.jpg/);
+  assert.match(html, /BESS_%28battery_energy_storage_system%29\.svg/);
+});
+
 test("public frontend source contains no server secret identifiers or API keys", () => {
   const publicSource = `${html}\n${js}\n${css}`;
   for (const forbidden of ["OPENAI_API_KEY", "RESEND_API_KEY", "Bearer sk-", "sk-proj-"]) {
