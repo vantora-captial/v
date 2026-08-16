@@ -106,12 +106,48 @@ test("image strategy supports Japan-wide positioning and sector-specific opportu
   assert.match(html, /Media credits|Image credits|Photo credits/i);
 });
 
-test("V2 mobile hierarchy keeps hero and conversion actions compact", () => {
+test("mobile header uses the approved minimal brand treatment", () => {
+  assert.match(html, /class="brand-mark"/);
+  assert.match(html, /class="mobile-brand-copy"/);
   assert.match(html, /@media\(max-width:760px\)/);
-  assert.match(html, /\.hero-actions/);
-  assert.match(html, /flex-direction:column/);
-  assert.match(html, /html\[lang="zh"\].*hero|html\[lang="ja"\].*hero/s);
+  assert.match(html, /\.mobile-brand-copy\{display:none/);
+  assert.match(html, /\.nav\{height:66px/);
+  assert.match(html, /\.menu\{display:inline-grid/);
+});
+
+test("mobile hero has language-specific editorial line break hooks", () => {
+  assert.match(html, /Access Japan/);
+  assert.match(html, /Through Trusted Local Execution/);
+  assert.match(html, /进入日本市场/);
+  assert.match(html, /获取投资、并购与战略合作机会/);
+  assert.match(html, /日本市場への/);
+  assert.match(html, /投資・M&A・事業機会にアクセス/);
+  assert.match(html, /hero-line/);
+  assert.match(html, /heroTitleLines/);
+});
+
+test("mobile sections use editorial lists instead of repeated card grids", () => {
+  assert.match(html, /audience-list/);
+  assert.match(html, /unlock-list/);
+  assert.match(html, /unlock-index/);
   assert.match(html, /opportunity-feature/);
+  assert.match(html, /why-mobile-list/);
+  assert.match(html, /experience-list/);
+});
+
+test("mobile opportunities use immersive vertical storytelling", () => {
+  assert.match(html, /\.opportunity-feature\{display:block;margin:0 0 56px/);
+  assert.match(html, /\.opportunity-media\{height:clamp\(300px,72vw,390px\)/);
+  assert.match(html, /opportunity-description/);
+  assert.match(html, /opportunity-cta/);
+});
+
+test("mobile spacing and small-phone rules cover 760px and 390px", () => {
+  assert.match(html, /@media\(max-width:760px\)/);
+  assert.match(html, /@media\(max-width:390px\)/);
+  assert.match(html, /section\[id\]\{scroll-margin-top:80px\}/);
+  assert.match(html, /overflow-x:hidden/);
+  assert.match(html, /font-size:15px/);
 });
 
 test("direct contact remains available without using the AI assistant", () => {
