@@ -1,0 +1,99 @@
+name: Deploy Vantora Preview
+
+on:
+  push:
+    branches: ["ai-sales-redesign"]
+    paths:
+      - "index.html"
+      - "assets/**"
+      - ".github/workflows/preview-pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      PREVIEW_PROJECT: vantora-site-preview
+    steps:
+      - name: Checkout feature branch
+        uses: actions/checkout@v4
+        with:
+          ref: ai-sales-redesign
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Validate Cloudflare credentials
+        shell: bash
+        run: |
+          set -eu
+          for name in CLOUDFLARE_ACCOUNT_ID CLOUDFLARE_API_TOKEN; do
+            eval "value=\${$name:-}"
+            if [ -z "$value" ]; then
+              echo "Missing required GitHub Actions secret: $name"
+              exit 1
+            fi
+          done
+
+      - name: Build public-only preview directory
+        shell: bash
+        run: |
+          set -eu
+          rm -rf preview-dist
+          mkdir -p preview-dist
+          cp index.html preview-dist/index.html
+          cp -R assets preview-dist/assets
+          test ! -e preview-dist/admin.html
+          test ! -e preview-dist/server.mjs
+          test ! -e preview-dist/news-drafts.json
+          test ! -e preview-dist/start-admin.bat
+
+      - name: Ensure preview project exists
+        shell: bash
+        run: |
+          set -eu
+          if ! npx --yes wrangler@4 pages project list | grep -q "$PREVIEW_PROJECT"; then
+            npx --yes wrangler@4 pages project create "$PREVIEW_PROJECT" --production-branch ai-sales-redesign
+          fi
+
+      - name: Deploy preview
+        id: deploy
+        shell: bash
+        run: |
+          set -o pipefail
+          npx --yes wrangler@4 pages deploy preview-dist \
+            --project-name "$PREVIEW_PROJECT" \
+            --branch ai-sales-redesign \
+            --commit-hash "$GITHUB_SHA" 2>&1 | tee preview-deploy.txt
+          preview_url=$(grep -Eo 'https://[^ ]+\.pages\.dev' preview-deploy.txt | tail -n 1 || true)
+          if [ -z "$preview_url" ]; then
+            echo "Preview deployment completed but no pages.dev URL was detected."
+            exit 1
+          fi
+          echo "preview_url=$preview_url" >> "$GITHUB_OUTPUT"
+          echo "### Vantora Preview" >> "$GITHUB_STEP_SUMMARY"
+          echo "$preview_url" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Verify preview homepage
+        shell: bash
+        run: |
+          set -eu
+          url="${{ steps.deploy.outputs.preview_url }}"
+          for attempt in 1 2 3 4 5 6; do
+            html=$(curl --fail --silent --show-error "$url" || true)
+            if printf '%s' "$html" | grep -q 'Japan Opportunities. Local Execution. Global Perspective.'; then
+              echo "Preview check passed: $url"
+              exit 0
+            fi
+            echo "Preview check attempt $attempt failed; retrying in 5 seconds..."
+            sleep 5
+          done
+          echo "Preview did not become ready in time."
+          exit 1
