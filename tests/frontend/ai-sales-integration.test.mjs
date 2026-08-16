@@ -35,6 +35,20 @@ test("homepage matches the approved Vantora public redesign contract", () => {
   assert.doesNotMatch(html, /Tell Us Your Mandate/);
 });
 
+test("multilingual copy uses external client-facing CTAs and updates document language", () => {
+  assert.match(html, /Discuss Your Strategy/);
+  assert.match(html, /与我们讨论您的日本投资计划/);
+  assert.match(html, /日本での投資・事業機会について相談する/);
+  assert.match(html, /document\.documentElement\.lang=lang/);
+});
+
+test("mobile typography is restrained for English, Chinese, and Japanese", () => {
+  assert.match(html, /font-size:clamp\(2\.55rem,11\.5vw,2\.9rem\)/);
+  assert.match(html, /font-size:clamp\(1\.85rem,8vw,2\.35rem\)/);
+  assert.match(html, /body\{font-size:15px\}/);
+  assert.match(html, /html\[lang="zh"\] \.hero h1,html\[lang="ja"\] \.hero h1/);
+});
+
 test("public frontend source contains no server secret identifiers or API keys", () => {
   const publicSource = `${html}\n${js}\n${css}`;
   for (const forbidden of ["OPENAI_API_KEY", "RESEND_API_KEY", "Bearer sk-", "sk-proj-"]) {
