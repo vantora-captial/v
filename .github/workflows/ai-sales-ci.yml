@@ -1,0 +1,55 @@
+name: AI Sales CI
+
+on:
+  push:
+    branches: ["ai-sales-redesign"]
+    paths:
+      - "worker/**"
+      - "assets/ai-sales*"
+      - "tests/frontend/**"
+      - ".github/workflows/ai-sales-ci.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  worker-tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: worker
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install Worker dependencies
+        run: npm install
+      - name: Run Worker tests
+        run: npm test
+      - name: Wrangler dry run
+        if: success()
+        run: npx wrangler deploy --dry-run --outdir dist
+
+  frontend-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Run frontend tests when present
+        shell: bash
+        run: |
+          shopt -s nullglob
+          tests=(tests/frontend/*.test.mjs)
+          if [ ${#tests[@]} -eq 0 ]; then
+            echo "No frontend tests yet"
+            exit 0
+          fi
+          node --test "${tests[@]}"
