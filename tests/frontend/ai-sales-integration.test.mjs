@@ -31,7 +31,7 @@ test("homepage matches the approved Vantora V2 Japan-focused contract", () => {
   assert.doesNotMatch(html, /id="insights"/);
   assert.match(html, /<option value="en">EN<\/option>/);
   assert.match(html, /<option value="zh">中文<\/option>/);
-  assert.match(html, /<option value="ja">日本語<\/option>/);
+  assert.match(html, /<option value="ja">JA<\/option>/);
   assert.doesNotMatch(html, /Japan Opportunities\. Local Execution\. Global Perspective\./);
   assert.doesNotMatch(html, /Discuss Your Strategy/);
   assert.doesNotMatch(html, /Tokyo-based cross-border advisory/);
