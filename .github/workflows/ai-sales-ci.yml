@@ -28,10 +28,12 @@ jobs:
           node-version: "22"
       - name: Install Worker dependencies
         run: npm install
+      - name: Generate Worker types
+        run: npm run types
       - name: Run Worker tests
         run: npm test
       - name: Wrangler dry run
-        if: success()
+        if: ${{ success() && hashFiles('worker/src/index.ts') != '' }}
         run: npx wrangler deploy --dry-run --outdir dist
 
   frontend-tests:
