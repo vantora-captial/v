@@ -8,7 +8,7 @@ Status: User-approved direction; implementation pending
 
 The second redesign combines two roles:
 
-- **A — Premium Tokyo investment / M&A advisory:** the brand must feel credible, discreet, senior, and institutionally polished.
+- **A — Premium Japan investment / M&A advisory:** the brand must feel credible, discreet, senior, and institutionally polished.
 - **C — Japan opportunities & resource-access platform:** visitors must also feel that Vantora can surface relevant investment, M&A, infrastructure, partnership, and market-entry opportunities.
 
 The design must not look like a generic consulting brochure or a public project marketplace. The intended impression is:
@@ -21,7 +21,7 @@ The site should communicate both trust and opportunity, with conversion paths bu
 
 The current preview has four primary issues:
 
-1. **Image system is off-positioning.** The images do not sufficiently express premium Tokyo business access, local execution, and transaction credibility.
+1. **Image system is off-positioning.** The images do not sufficiently express premium Japan business access, local execution, and transaction credibility.
 2. **Information architecture is too neutral.** The page explains what Vantora is but does not pull a visitor through a strong commercial journey.
 3. **Language is too institutional and descriptive.** It lacks direct value propositions, urgency of relevance, and persuasive next-step guidance.
 4. **Opportunity content feels detached from the advisory brand.** It must function as evidence of access, not as a product catalogue.
@@ -36,16 +36,16 @@ V2 must resolve all four together rather than treating copy, imagery, or CTA des
 
 ### Endorsement
 
-Use **Powered by UPEX Tokyo** sparingly, primarily in About/Why Vantora and the footer.
+Use **Powered by UPEX** sparingly, primarily in About/Why Vantora and the footer. Tokyo may appear only as the company/execution base where factually appropriate, not as the brand's geographic scope.
 
 ### Positioning statement
 
-Vantora is a **Tokyo-based cross-border investment, M&A, and strategic access platform** connecting international investors and companies with selected Japan opportunities, local counterparties, and execution support.
+Vantora is a **Japan-focused cross-border investment, M&A, and strategic access platform** connecting international investors and companies with selected opportunities, local counterparties, and execution support across Japan.
 
 ### What the visitor should understand within 10 seconds
 
-- Vantora is based in Tokyo.
-- Vantora helps international investors and companies access Japan.
+- Vantora provides access and execution support across Japan.
+- Vantora helps international investors and companies enter, invest in, acquire, and partner in Japan.
 - Vantora provides both advisory/execution capability and access to selected opportunities.
 - The next step is to explore opportunities or start a private discussion.
 
@@ -103,7 +103,7 @@ Final order:
 
 Purpose: establish authority, access, and relevance immediately.
 
-Hero should use a premium Tokyo business/city visual and clear cross-border positioning.
+Hero should use premium Japan business imagery and clear cross-border positioning. The visual does not need to be Tokyo-specific; Tokyo may be one of several valid Japanese business references.
 
 Recommended headline direction:
 
@@ -113,7 +113,7 @@ Alternative supporting line:
 
 **Private Opportunities. Strategic Access. Cross-Border Execution.**
 
-Supporting paragraph should state in plain language that Vantora helps international investors and companies identify, access, structure, and execute opportunities in Japan.
+Supporting paragraph should state in plain language that Vantora helps international investors and companies identify, access, structure, and execute opportunities across Japan.
 
 Primary CTA:
 
@@ -185,14 +185,14 @@ Purpose: convert interest into trust.
 
 Core themes:
 
-- Tokyo-based local execution
+- Japan-wide local execution capability
 - Cross-border investment and M&A experience
 - Senior, hands-on support
 - Access to local business networks and counterparties
 - Multilingual communication
 - Confidential, private process
 
-Use “Powered by UPEX Tokyo” here as a supporting endorsement.
+Use “Powered by UPEX” here as a supporting endorsement. Tokyo may be mentioned as an execution base only if useful and accurate.
 
 Do not overstate network size, exclusivity, licenses, regulatory status, or transaction volumes.
 
@@ -214,11 +214,11 @@ This must be a deliberate conversion section rather than a generic contact block
 
 Recommended heading:
 
-**Start a Private Discussion in Tokyo**
+**Start a Private Discussion About Japan**
 
 Supporting copy:
 
-Discuss your Japan investment, acquisition, market-entry, or strategic partnership objectives with our Tokyo-based team.
+Discuss your Japan investment, acquisition, market-entry, or strategic partnership objectives with our team.
 
 Primary action:
 
@@ -269,16 +269,16 @@ Preferred value framing:
 
 - 进入日本市场
 - 获取日本投资与并购机会
-- 寻找本地合作方 / 收购标的 / 项目资源
+- 寻找日本本地合作方 / 收购标的 / 项目资源
 - 对接资本、买家与战略合作伙伴
-- 东京本地执行支持
+- 日本本地执行支持
 - 私密沟通 / 一对一讨论
 
 Recommended CTA examples:
 
 - **查看日本精选机会**
 - **预约一对一私密沟通**
-- **与东京团队讨论您的日本计划**
+- **讨论您的日本投资与业务计划**
 
 Avoid overused marketing phrases such as “赋能全球资本生态” or literal translations of “mandate.”
 
@@ -293,7 +293,7 @@ Preferred framing:
 - 現地パートナー探索
 - 買収候補・事業機会の探索
 - 海外投資家・戦略パートナーとの連携
-- 東京での実行支援
+- 日本国内での実行支援
 
 Recommended CTA examples:
 
@@ -307,7 +307,7 @@ Recommended CTA examples:
 
 The visual system should communicate:
 
-- premium Tokyo advisory
+- premium Japan advisory
 - discreet institutional access
 - selected opportunity visibility
 - cross-border execution
@@ -342,15 +342,17 @@ V2 images must serve positioning, not decoration.
 
 ### Hero
 
-Use a premium Tokyo business-district or skyline image that feels international and executive.
+Use premium Japan business imagery that feels international, executive, and relevant to investment and corporate activity.
 
-Target locations / visual references:
+Possible visual references may include:
 
-- Marunouchi
-- Otemachi
-- Toranomon
-- Tokyo waterfront business skyline
-- modern Tokyo corporate architecture
+- major Japanese business districts
+- modern Japanese corporate architecture
+- ports / logistics corridors where appropriate
+- regional industrial and infrastructure landscapes
+- sophisticated urban business environments across Japan
+
+Tokyo imagery is acceptable but must not imply that Vantora’s scope is Tokyo-only.
 
 Avoid tourist imagery, generic Shibuya crowds, cherry blossoms, or a single infrastructure asset as the brand hero.
 
@@ -367,7 +369,7 @@ Images must not imply that a pictured asset is the exact opportunity being marke
 
 ### Why Vantora / Experience
 
-Use premium Japan business imagery: executive meeting, corporate district, industrial site visit, transaction context, or Tokyo office setting.
+Use premium Japan business imagery: executive meeting, corporate district, industrial site visit, transaction context, or professional office setting.
 
 Avoid cliché handshakes, fake holographic AI graphics, posed call-center teams, and low-end stock imagery.
 
@@ -411,13 +413,13 @@ Full production prominence should wait until OpenAI quota, multilingual live res
 
 V2 is ready for preview when:
 
-1. Hero clearly communicates Tokyo-based investment/M&A access within one screen.
+1. Hero clearly communicates Japan-focused investment/M&A access within one screen.
 2. Homepage combines premium advisory identity with opportunity access without looking like a marketplace.
 3. New section order is: Hero → Who We Help → What We Unlock in Japan → Selected Opportunities → Why Vantora → Selected Experience → Private Discussion.
 4. Insights/News no longer interrupts the main homepage conversion path.
 5. English, Chinese, and Japanese are rewritten for commercial conversion, not literal translation.
 6. Primary CTAs are **Explore Opportunities** and **Book a Private Discussion** or natural language equivalents.
-7. Hero image is premium Tokyo business imagery.
+7. Hero image is premium Japan business imagery and does not imply Tokyo-only coverage.
 8. Selected Opportunities use sector-specific editorial imagery and fewer/larger cards.
 9. Unsupported metrics and claims remain removed.
 10. Mobile hero, typography, and CTA hierarchy remain restrained and usable.
