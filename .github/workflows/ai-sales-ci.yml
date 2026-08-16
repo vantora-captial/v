@@ -4,6 +4,7 @@ on:
   push:
     branches: ["ai-sales-redesign"]
     paths:
+      - "index.html"
       - "worker/**"
       - "assets/ai-sales*"
       - "tests/frontend/**"
