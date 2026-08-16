@@ -8,8 +8,9 @@ const [html, js, css] = await Promise.all([
   readFile(new URL("../../assets/ai-sales.css", import.meta.url), "utf8")
 ]);
 
-test("homepage loads the AI sales assets with the feature-branch local API hook", () => {
-  assert.match(html, /<meta name="vantora-ai-api" content="http:\/\/127\.0\.0\.1:8787">/);
+test("homepage loads the AI sales assets with the deployed production Worker hook", () => {
+  assert.match(html, /<meta name="vantora-ai-api" content="https:\/\/vantora-ai-sales\.vantora-captial-tech\.workers\.dev">/);
+  assert.doesNotMatch(html, /<meta name="vantora-ai-api" content="http:\/\/127\.0\.0\.1:8787">/);
   assert.match(html, /<link rel="stylesheet" href="assets\/ai-sales\.css">/);
   assert.match(html, /<script type="module" src="assets\/ai-sales\.js"><\/script>/);
 });
