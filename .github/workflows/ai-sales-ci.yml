@@ -8,6 +8,7 @@ on:
       - "worker/**"
       - "assets/ai-sales*"
       - "tests/frontend/**"
+      - "docs/superpowers/**"
       - ".github/workflows/ai-sales-ci.yml"
   workflow_dispatch:
 
