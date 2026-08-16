@@ -1,0 +1,52 @@
+name: Point AI Sales Frontend to Production Worker
+
+on:
+  push:
+    branches:
+      - ai-sales-redesign
+    paths:
+      - .github/workflows/ai-sales-point-prod.yml
+
+permissions:
+  contents: write
+
+jobs:
+  point-prod:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout feature branch
+        uses: actions/checkout@v4
+        with:
+          ref: ai-sales-redesign
+
+      - name: Point frontend to deployed Worker
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('index.html')
+          text = path.read_text()
+          old = '<meta name="vantora-ai-api" content="http://127.0.0.1:8787">'
+          new = '<meta name="vantora-ai-api" content="https://vantora-ai-sales.vantora-captial-tech.workers.dev">'
+          if old not in text:
+              raise SystemExit('Expected local AI API meta tag was not found')
+          path.write_text(text.replace(old, new, 1))
+          PY
+
+      - name: Verify production endpoint hook
+        shell: bash
+        run: |
+          grep -F 'content="https://vantora-ai-sales.vantora-captial-tech.workers.dev"' index.html
+          if grep -F 'content="http://127.0.0.1:8787"' index.html; then
+            echo 'Local AI API endpoint is still present'
+            exit 1
+          fi
+
+      - name: Commit frontend endpoint
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git commit -m 'feat: point AI sales frontend to deployed Worker'
+          git push origin HEAD:ai-sales-redesign
