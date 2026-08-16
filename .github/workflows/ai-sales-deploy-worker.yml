@@ -81,6 +81,16 @@ jobs:
       - name: Verify health endpoint
         shell: bash
         run: |
-          curl --fail --silent --show-error "${{ steps.deploy.outputs.worker_url }}/health"
-          echo
-          echo "Health check passed."
+          set -eu
+          url="${{ steps.deploy.outputs.worker_url }}/health"
+          for attempt in 1 2 3 4 5 6; do
+            if curl --fail --silent --show-error "$url"; then
+              echo
+              echo "Health check passed."
+              exit 0
+            fi
+            echo "Health check attempt $attempt failed; retrying in 5 seconds..."
+            sleep 5
+          done
+          echo "Health endpoint did not become ready in time."
+          exit 1
