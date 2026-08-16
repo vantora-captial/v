@@ -28,8 +28,8 @@ test("AI state is tab-scoped and the frontend cannot choose the server email rec
   assert.match(js, /\/v1\/leads/);
   assert.match(js, /needsConfirmation/);
   assert.match(js, /ai-sales-confirm/);
-  assert.equal(js.includes('recipient:'), false);
-  assert.equal(js.includes('to:'), false);
+  assert.doesNotMatch(js, /\brecipient\s*:/);
+  assert.doesNotMatch(js, /(^|[,{]\s*)to\s*:/m);
 });
 
 test("visitor and model content is rendered as text rather than injected HTML", () => {
