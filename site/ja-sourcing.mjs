@@ -5,8 +5,8 @@ const SELLER_SECTION = `<section class="section seller-sourcing" id="ja-seller-s
       <h2>海外の買い手・投資家との取引をご検討ですか。</h2>
       <p>会社・事業の譲渡、資本受入れ、海外企業との事業提携、プロジェクト・資産の売却など、クロスボーダー案件についてご相談ください。</p>
       <div class="seller-sourcing__actions">
-        <a class="button button-gold" href="/ja/contact/?path=sell-business">案件について相談する</a>
-        <a class="button button-dark" href="/ja/contact/?path=raise-capital">海外投資家との取引について相談する</a>
+        <a class="button button-gold" href="/ja/contact/?path=sell-business-asset">案件について相談する</a>
+        <a class="button button-dark" href="/ja/contact/?path=acquire-invest">海外投資家との取引について相談する</a>
       </div>
     </div>
     <div class="seller-sourcing__execution">
@@ -27,12 +27,12 @@ const COUNTERPARTY_SECTION = `<section class="section overseas-counterparties" i
 </section>`;
 
 const CONTACT_REPLACEMENTS = new Map([
-  ["日本企業・資産への投資を検討", "会社・事業の譲渡について相談する"],
-  ["会社・資産の売却を相談", "海外からの資本受入れを相談する"],
+  ["日本で買収・投資を検討", "海外からの資本受入れを相談する"],
+  ["事業・資産の売却を検討", "会社・事業の譲渡について相談する"],
   ["日本の戦略パートナーを探索", "海外企業との提携先を探す"],
   ["案件を相談・紹介", "投資・事業案件を持ち込む"],
-  ["日本企業・資産の買収、投資、共同投資等を検討する海外投資家・事業会社向け。", "会社売却・事業承継・カーブアウト・株式譲渡など、会社・事業の譲渡をご検討の方へ。"],
-  ["会社、事業、資産の売却や資本提携を検討するオーナー・企業向け。", "戦略投資・資本提携・成長資金・共同投資など、海外からの資本受入れをご検討の方へ。"],
+  ["日本企業・資産・プロジェクトを検討する買手、投資家、ファンド、ファミリーオフィス、事業会社向け。", "戦略投資・資本提携・成長資金・共同投資など、海外からの資本受入れをご検討の方へ。"],
+  ["秘密保持に配慮しながら事業、株式、資産の取引を検討するオーナー・企業向け。", "会社売却・事業承継・カーブアウト・株式譲渡など、会社・事業の譲渡をご検討の方へ。"],
   ["日本でのパートナー、JV、販路、事業提携を検討する海外企業向け。", "JV・業務提携・販路・技術・事業パートナーなど、海外企業との提携をご検討の方へ。"],
   ["案件オーナー、紹介者、パートナーからの非公開案件のご相談向け。", "BESS、データセンター、商業・産業用不動産、船舶・航空、その他実物資産などの案件持込み・ご相談へ。"]
 ]);
