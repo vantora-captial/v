@@ -73,16 +73,18 @@ jobs:
             echo "Registry preview deployment completed but no pages.dev URL was detected."
             exit 1
           fi
+          stable_url="https://${PREVIEW_PROJECT}.pages.dev"
           echo "preview_url=$preview_url" >> "$GITHUB_OUTPUT"
+          echo "stable_url=$stable_url" >> "$GITHUB_OUTPUT"
           echo "### Registry Presentation Preview" >> "$GITHUB_STEP_SUMMARY"
-          echo "$preview_url/?demo=1" >> "$GITHUB_STEP_SUMMARY"
+          echo "$stable_url/?demo=1" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Verify presentation preview
         shell: bash
         run: |
           set -eu
-          url="${{ steps.deploy.outputs.preview_url }}/?demo=1"
-          for attempt in 1 2 3 4 5 6; do
+          url="${{ steps.deploy.outputs.stable_url }}/?demo=1"
+          for attempt in 1 2 3 4 5 6 7 8 9 10 11 12; do
             html=$(curl --fail --silent --show-error "$url" || true)
             if printf '%s' "$html" | grep -q 'Vantora Project Registry'; then
               echo "Registry preview check passed: $url"
