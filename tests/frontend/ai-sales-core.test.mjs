@@ -11,7 +11,7 @@ import {
   safeSessionId
 } from "../../assets/ai-sales-core.mjs";
 
-test("provides complete EN/ZH/JA concierge copy", () => {
+test("provides complete EN/ZH/JA concierge copy with Traditional Chinese", () => {
   for (const language of ["en", "zh", "ja"]) {
     const copy = getUiCopy(language);
     assert.equal(copy.title, "Vantora AI Concierge");
@@ -24,7 +24,10 @@ test("provides complete EN/ZH/JA concierge copy", () => {
     assert.ok(copy.fallbackLabels.name.length > 0);
     assert.ok(copy.fallbackLabels.sizeBudget.length > 0);
   }
-  assert.equal(AI_COPY.zh.confirm, "确认并发送");
+  assert.equal(AI_COPY.zh.confirm, "確認並發送");
+  assert.equal(AI_COPY.zh.launcher, "諮詢 AI");
+  assert.equal(AI_COPY.zh.fallbackLabels.countryRegion, "國家／地區");
+  assert.doesNotMatch(JSON.stringify(AI_COPY.zh), /咨询|确认|发送|信息|邮箱|国家|项目|预计|时间计划/);
   assert.equal(AI_COPY.ja.confirm, "確認して送信");
 });
 
@@ -48,12 +51,12 @@ test("summary rows localize labels while preserving supplied lead values", () =>
   const rows = buildSummaryRows(normalizeLead({
     name: "Aya Test",
     company: "Example Holdings",
-    countryRegion: "中国",
+    countryRegion: "中國",
     opportunityType: "M&A"
   }), "zh");
 
-  assert.equal(rows.find((row) => row.key === "countryRegion").label, "国家／地区");
-  assert.equal(rows.find((row) => row.key === "countryRegion").value, "中国");
+  assert.equal(rows.find((row) => row.key === "countryRegion").label, "國家／地區");
+  assert.equal(rows.find((row) => row.key === "countryRegion").value, "中國");
   assert.equal(rows.find((row) => row.key === "stage").value, "未提供");
 });
 
