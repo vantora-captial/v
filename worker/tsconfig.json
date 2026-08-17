@@ -7,5 +7,5 @@
     "skipLibCheck": true,
     "noEmit": true
   },
-  "include": ["worker-configuration.d.ts", "src/**/*.ts", "test/**/*.ts", "vitest.config.ts"]
+  "include": ["worker-configuration.d.ts", "src/**/*.ts", "vitest.config.ts"]
 }
