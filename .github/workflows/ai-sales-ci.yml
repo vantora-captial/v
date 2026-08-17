@@ -14,6 +14,7 @@ on:
       - "assets/ai-sales*"
       - "assets/site*"
       - "assets/opportunities.mjs"
+      - "assets/presentation-opportunities.mjs"
       - "assets/contact.mjs"
       - "tests/frontend/**"
       - "docs/superpowers/**"
@@ -40,6 +41,8 @@ jobs:
         run: npm install
       - name: Generate Worker types
         run: npm run types
+      - name: Typecheck Worker source
+        run: npx tsc --noEmit
       - name: Run Worker tests
         run: npm test
       - name: Wrangler dry run
@@ -55,19 +58,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - name: Build trilingual site when generator exists
-        shell: bash
-        run: |
-          if [ -f scripts/build-site.mjs ]; then
-            node scripts/build-site.mjs
-          fi
-      - name: Run frontend tests when present
+      - name: Build trilingual site
+        run: node scripts/build-site.mjs
+      - name: Run frontend tests
         shell: bash
         run: |
           shopt -s nullglob
           tests=(tests/frontend/*.test.mjs)
           if [ ${#tests[@]} -eq 0 ]; then
-            echo "No frontend tests yet"
-            exit 0
+            echo "No frontend tests found"
+            exit 1
           fi
           node --test "${tests[@]}"
