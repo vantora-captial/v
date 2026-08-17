@@ -2,11 +2,19 @@ name: AI Sales CI
 
 on:
   push:
-    branches: ["ai-sales-redesign"]
+    branches: ["ai-sales-redesign", "trilingual-public-site"]
     paths:
       - "index.html"
+      - "en/**"
+      - "zh/**"
+      - "ja/**"
+      - "site/**"
+      - "scripts/**"
       - "worker/**"
       - "assets/ai-sales*"
+      - "assets/site*"
+      - "assets/opportunities.mjs"
+      - "assets/contact.mjs"
       - "tests/frontend/**"
       - "docs/superpowers/**"
       - ".github/workflows/ai-sales-ci.yml"
@@ -47,6 +55,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "22"
+      - name: Build trilingual site when generator exists
+        shell: bash
+        run: |
+          if [ -f scripts/build-site.mjs ]; then
+            node scripts/build-site.mjs
+          fi
       - name: Run frontend tests when present
         shell: bash
         run: |
