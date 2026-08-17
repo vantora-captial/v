@@ -23,6 +23,25 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Build trilingual public site
+        run: node scripts/build-site.mjs
+      - name: Stage public-only artifact
+        shell: bash
+        run: |
+          set -eu
+          rm -rf public-dist
+          mkdir -p public-dist
+          cp index.html public-dist/index.html
+          cp -R en zh ja assets public-dist/
+          test ! -e public-dist/registry
+          test ! -e public-dist/worker
+          test ! -e public-dist/docs
+          test ! -e public-dist/site
+          test ! -e public-dist/scripts
       - name: Configure Pages
         uses: actions/configure-pages@v5
         with:
@@ -30,7 +49,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: public-dist
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
