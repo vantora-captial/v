@@ -19,7 +19,7 @@ This verification covers the approved trilingual public-site implementation:
 - sanitized Opportunities surface and non-live presentation mode
 - About / Vantora-UPEX brand hierarchy
 - four-path Private Discussion contact experience
-- existing AI concierge regression compatibility
+- existing AI concierge regression compatibility, including Traditional Chinese UI copy
 - responsive/accessibility contracts
 - SEO metadata, canonical and hreflang generation
 - public-output safety audit
@@ -27,9 +27,9 @@ This verification covers the approved trilingual public-site implementation:
 
 ## Implementation branch evidence
 
-Implementation verification commit before this documentation commit:
+Final implementation commit before this documentation refresh:
 
-`015c450b8f09b71645d9ae77e8175c15f7f29feb`
+`78bfb8061f83a98207367815adea740192547d15`
 
 The branch remains isolated from `top`. No production merge or GitHub Pages production deployment was performed by this work.
 
@@ -37,17 +37,18 @@ The branch remains isolated from `top`. No production merge or GitHub Pages prod
 
 GitHub Actions workflow: `AI Sales CI`
 
-Run: `31999871140`
-Head: `015c450b8f09b71645d9ae77e8175c15f7f29feb`
+Run: `31999991713`
+Head: `78bfb8061f83a98207367815adea740192547d15`
 Conclusion: `success`
 
-Frontend job passed all of the following:
+Frontend job passed:
 
 - deterministic trilingual static-site build
 - complete `tests/frontend/*.test.mjs` suite
+- Traditional Chinese AI concierge contract
 - generated public-output audit for secrets and unsupported claims
 
-Worker job passed all of the following:
+Worker job passed:
 
 - dependency install
 - `wrangler types`
@@ -61,8 +62,8 @@ The Worker was not deployed by this verification.
 
 GitHub Actions workflow: `Deploy Vantora Preview`
 
-Run: `31999813299`
-Head: `9579b11ca9a542ef74ecd89f325c735f9e4c7f7c`
+Run: `31999991717`
+Head: `78bfb8061f83a98207367815adea740192547d15`
 Conclusion: `success`
 
 The workflow built the site in `presentation` mode, staged only the public router, language trees, and assets, deployed them to the isolated Cloudflare Pages preview, and verified the English, Traditional Chinese, and Japanese hero content over HTTP.
