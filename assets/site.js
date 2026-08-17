@@ -1,18 +1,5 @@
-const pageTranslations = window.PAGE_TRANSLATIONS || {};
-const selector = document.querySelector('[data-language-selector]');
-const stored = localStorage.getItem('vantoraLang') || 'en';
-
-function applyLanguage(language) {
-  const dictionary = pageTranslations[language] || pageTranslations.en || {};
-  document.documentElement.lang = language === 'zh' ? 'zh-CN' : language;
-  document.querySelectorAll('[data-i18n]').forEach((element) => {
-    const value = dictionary[element.dataset.i18n];
-    if (value !== undefined) element.innerHTML = value;
-  });
-  if (dictionary.pageTitle) document.title = dictionary.pageTitle;
-  localStorage.setItem('vantoraLang', language);
-  if (selector) selector.value = language;
-}
-
-if (selector) selector.addEventListener('change', (event) => applyLanguage(event.target.value));
-applyLanguage(stored);
+import { LANGUAGE_STORAGE_KEY, equivalentLanguagePath } from "/assets/site-language.mjs";
+const menu=document.querySelector('.menu-button');const nav=document.querySelector('#primary-nav');
+function close(){if(!menu||!nav)return;menu.setAttribute('aria-expanded','false');nav.classList.remove('is-open');}
+if(menu&&nav){menu.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')==='true';menu.setAttribute('aria-expanded',String(!open));nav.classList.toggle('is-open',!open);});nav.addEventListener('click',e=>{if(e.target.closest('a'))close();});document.addEventListener('keydown',e=>{if(e.key==='Escape')close();});}
+document.querySelectorAll('[data-language-choice]').forEach(link=>link.addEventListener('click',event=>{const lang=link.dataset.languageChoice;try{localStorage.setItem(LANGUAGE_STORAGE_KEY,lang);}catch{}event.preventDefault();location.href=equivalentLanguagePath(location.pathname,lang)+location.search;}));
