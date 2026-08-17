@@ -19,6 +19,8 @@ on:
       - "tests/frontend/**"
       - "docs/superpowers/**"
       - ".github/workflows/ai-sales-ci.yml"
+      - ".github/workflows/preview-pages.yml"
+      - ".github/workflows/pages.yml"
   workflow_dispatch:
 
 permissions:
@@ -70,3 +72,12 @@ jobs:
             exit 1
           fi
           node --test "${tests[@]}"
+      - name: Audit generated public output
+        shell: bash
+        run: |
+          set -eu
+          if grep -R -n -E 'OPENAI_API_KEY|RESEND_API_KEY|sk-proj-|Bearer sk-|\$847M AUM|guaranteed return|exclusive opportunity' index.html en zh ja assets --exclude='*.svg'; then
+            echo "Forbidden secret or unsupported public claim found"
+            exit 1
+          fi
+          echo "Public output audit passed"
