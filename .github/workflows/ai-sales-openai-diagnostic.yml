@@ -1,0 +1,40 @@
+name: Diagnose OpenAI API Access
+
+on:
+  push:
+    branches:
+      - ai-sales-redesign
+    paths:
+      - .github/workflows/ai-sales-openai-diagnostic.yml
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose-openai:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call OpenAI Responses API directly
+        shell: bash
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          set -eu
+          code=$(curl --silent --show-error -o response.json -w '%{http_code}' https://api.openai.com/v1/responses \
+            -H "Authorization: Bearer $OPENAI_API_KEY" \
+            -H 'Content-Type: application/json' \
+            --data '{"model":"gpt-5.6","store":false,"input":"Reply with OK."}')
+          echo "HTTP_STATUS=$code"
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          data=json.loads(Path('response.json').read_text())
+          if 'error' in data:
+              err=data['error']
+              print('ERROR_TYPE=' + str(err.get('type')))
+              print('ERROR_CODE=' + str(err.get('code')))
+              print('ERROR_MESSAGE=' + str(err.get('message')))
+          else:
+              print('OPENAI_RESPONSE_OK=true')
+          PY
+          test "$code" = "200"

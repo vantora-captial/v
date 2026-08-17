@@ -1,0 +1,26 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "vantora-ai-sales",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-08-16",
+  "compatibility_flags": ["nodejs_compat"],
+  "vars": {
+    "OPENAI_MODEL": "gpt-5.6",
+    "LEAD_RECIPIENT": "aya@u-pex.com",
+    "LEAD_FROM_EMAIL": "Vantora AI <leads@u-pex.com>",
+    "ALLOWED_ORIGINS": "https://vantora-captial.github.io,http://127.0.0.1:8000"
+  },
+  "ratelimits": [
+    {
+      "name": "CHAT_RATE_LIMITER",
+      "namespace_id": "1001",
+      "simple": { "limit": 20, "period": 60 }
+    },
+    {
+      "name": "LEAD_RATE_LIMITER",
+      "namespace_id": "1002",
+      "simple": { "limit": 5, "period": 60 }
+    }
+  ],
+  "observability": { "enabled": true }
+}
