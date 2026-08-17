@@ -32,6 +32,11 @@ function idFromPath(pathname: string): string | null {
   return match ? decodeURIComponent(match[1]) : null;
 }
 
+async function fileBelongsToProject(db: D1Database, projectId: string, fileId: string): Promise<boolean> {
+  const row = await db.prepare("SELECT 1 AS found FROM project_files WHERE id = ? AND project_id = ?").bind(fileId, projectId).first<{ found: number }>();
+  return Boolean(row?.found);
+}
+
 export async function handleRegistryRequest(request: Request, env: RuntimeEnv): Promise<Response | null> {
   const url = new URL(request.url);
   const origin = request.headers.get("Origin");
@@ -90,6 +95,7 @@ export async function handleRegistryRequest(request: Request, env: RuntimeEnv): 
   }
   if (fileListMatch && request.method === "POST") {
     const projectId = decodeURIComponent(fileListMatch[1]);
+    if (!await getProject(env.REGISTRY_DB, projectId)) return json({ error: "not_found" }, 404, origin, env);
     const form = await request.formData();
     const file = form.get("file");
     const kind = String(form.get("kind") || "other");
@@ -104,22 +110,31 @@ export async function handleRegistryRequest(request: Request, env: RuntimeEnv): 
 
   const fileMatch = path.match(/^\/v1\/admin\/projects\/([^/]+)\/files\/([^/]+)$/);
   if (fileMatch && request.method === "GET") {
-    const result = await getProjectFile(env.REGISTRY_DB, env.REGISTRY_FILES, decodeURIComponent(fileMatch[2]));
+    const projectId = decodeURIComponent(fileMatch[1]);
+    const fileId = decodeURIComponent(fileMatch[2]);
+    if (!await fileBelongsToProject(env.REGISTRY_DB, projectId, fileId)) return json({ error: "not_found" }, 404, origin, env);
+    const result = await getProjectFile(env.REGISTRY_DB, env.REGISTRY_FILES, fileId);
     if (!result) return json({ error: "not_found" }, 404, origin, env);
     const headers = new Headers({ "Content-Type": result.meta.contentType, "Content-Disposition": `attachment; filename*=UTF-8''${encodeURIComponent(result.meta.originalName)}` });
     return new Response(result.object.body, { status: 200, headers });
   }
   if (fileMatch && request.method === "DELETE") {
-    const ok = await deleteProjectFile(env.REGISTRY_DB, env.REGISTRY_FILES, decodeURIComponent(fileMatch[2]), user.email);
+    const projectId = decodeURIComponent(fileMatch[1]);
+    const fileId = decodeURIComponent(fileMatch[2]);
+    if (!await fileBelongsToProject(env.REGISTRY_DB, projectId, fileId)) return json({ error: "not_found" }, 404, origin, env);
+    const ok = await deleteProjectFile(env.REGISTRY_DB, env.REGISTRY_FILES, fileId, user.email);
     return ok ? json({ ok: true }, 200, origin, env) : json({ error: "not_found" }, 404, origin, env);
   }
 
   const fileApprovalMatch = path.match(/^\/v1\/admin\/projects\/([^/]+)\/files\/([^/]+)\/public$/);
   if (fileApprovalMatch && request.method === "POST") {
     if (user.role !== "admin") return json({ error: "admin_required" }, 403, origin, env);
+    const projectId = decodeURIComponent(fileApprovalMatch[1]);
+    const fileId = decodeURIComponent(fileApprovalMatch[2]);
+    if (!await fileBelongsToProject(env.REGISTRY_DB, projectId, fileId)) return json({ error: "not_found" }, 404, origin, env);
     const raw = await bodyJson(request) as { approved?: unknown };
     if (typeof raw?.approved !== "boolean") return json({ error: "invalid_request" }, 400, origin, env);
-    const ok = await setFilePublicApproval(env.REGISTRY_DB, decodeURIComponent(fileApprovalMatch[2]), raw.approved, user.email);
+    const ok = await setFilePublicApproval(env.REGISTRY_DB, fileId, raw.approved, user.email);
     return ok ? json({ ok: true }, 200, origin, env) : json({ error: "not_found" }, 404, origin, env);
   }
 
@@ -133,7 +148,10 @@ export async function handleRegistryRequest(request: Request, env: RuntimeEnv): 
     if (!existing) return json({ error: "not_found" }, 404, origin, env);
     try {
       const patch = await bodyJson(request) as Record<string, unknown>;
-      const merged = parseProjectInput({ ...existing, ...patch, details: patch.details ?? existing.details });
+      if (patch.primaryCategory !== undefined && patch.primaryCategory !== existing.primaryCategory) {
+        return json({ error: "primary_category_immutable" }, 409, origin, env);
+      }
+      const merged = parseProjectInput({ ...existing, ...patch, primaryCategory: existing.primaryCategory, details: patch.details ?? existing.details });
       if (user.role !== "admin" && merged.publicVisible !== existing.publicVisible) return json({ error: "admin_required_for_visibility" }, 403, origin, env);
       const updated = await updateProject(env.REGISTRY_DB, id, merged, user.email);
       return json(updated, 200, origin, env);
