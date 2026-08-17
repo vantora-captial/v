@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vantora Project Registry</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">VANTORA / INTERNAL</p>
+      <h1>Project Registry</h1>
+    </div>
+    <div class="top-actions">
+      <span id="accessState">Checking Access…</span>
+      <button id="newProjectButton" type="button">New Project</button>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <aside class="sidebar" aria-label="Project list">
+      <div class="filters">
+        <input id="projectSearch" type="search" placeholder="Search project ID or name">
+        <select id="categoryFilter" aria-label="Filter by category">
+          <option value="">All categories</option>
+        </select>
+      </div>
+      <div id="projectList" class="project-list"></div>
+    </aside>
+
+    <section class="editor-panel">
+      <div id="notice" class="notice" hidden></div>
+      <form id="projectForm">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">PROJECT</p>
+            <h2 id="editorTitle">New Project</h2>
+          </div>
+          <span id="projectIdBadge" class="badge">Draft</span>
+        </div>
+
+        <fieldset>
+          <legend>Core information</legend>
+          <div class="grid two">
+            <label>Internal project name<input name="internalName" required maxlength="300"></label>
+            <label>Public teaser title<input name="publicTitle" maxlength="300"></label>
+            <label>Primary category<select name="primaryCategory" id="primaryCategory" required></select></label>
+            <label>Transaction type<input name="transactionType" required placeholder="Asset Acquisition"></label>
+            <label>Country<input name="country" required value="Japan"></label>
+            <label>Region / Prefecture<input name="region"></label>
+            <label>Secondary tags<input name="secondaryTags" placeholder="LAND, BESS, LOGISTICS"></label>
+            <label>Internal owner<input name="internalOwner"></label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Commercial terms</legend>
+          <div class="grid three">
+            <label>Currency<input name="currency" placeholder="USD / JPY"></label>
+            <label>Indicative / exact value<input name="indicativeValue" type="number" step="any"></label>
+            <label>Price display<select name="priceDisplayMode" id="priceDisplayMode"><option>Hidden</option><option>Range</option><option>Exact</option></select></label>
+            <label>Range minimum<input name="priceMin" type="number" step="any"></label>
+            <label>Range maximum<input name="priceMax" type="number" step="any"></label>
+            <label>Authorization status<input name="authorizationStatus" placeholder="Verified / Pending"></label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Counterparty & confidentiality</legend>
+          <div class="grid two">
+            <label>Seller / Project Owner<input name="sellerOwner"></label>
+            <label>Source / Introducer<input name="sourceIntroducer"></label>
+            <label>Confidentiality<select name="confidentialityLevel" id="confidentialityLevel"><option>Internal Only</option><option>Teaser</option><option>NDA Access</option></select></label>
+            <label>Public location<input name="publicLocation" placeholder="Japan / Kanto / Asia"></label>
+          </div>
+          <label>Internal notes<textarea name="internalNotes" rows="4"></textarea></label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Category-specific details</legend>
+          <div id="categoryFields" class="grid two"></div>
+        </fieldset>
+
+        <fieldset class="publish-block">
+          <legend>Sanitized public teaser</legend>
+          <label>Public summary<textarea name="publicTeaser" rows="4"></textarea></label>
+          <label>Public highlights<textarea name="publicHighlights" rows="3" placeholder="One highlight per line"></textarea></label>
+          <label class="toggle"><input name="publicVisible" type="checkbox" id="publicVisible"> Approved for public display</label>
+          <div id="teaserPreview" class="teaser-preview"></div>
+        </fieldset>
+
+        <div class="form-actions">
+          <button type="submit" class="primary">Save Project</button>
+          <select id="projectStatus" aria-label="Project status"><option>Draft</option><option>Submitted</option><option>Approved</option><option>Archived</option></select>
+          <button id="applyStatusButton" type="button">Apply Status</button>
+        </div>
+      </form>
+    </section>
+
+    <aside class="activity-panel">
+      <section>
+        <p class="eyebrow">FILES</p>
+        <h2>Project Files</h2>
+        <form id="fileForm">
+          <select name="kind"><option value="teaser">Teaser</option><option value="im">IM / Memorandum</option><option value="financial">Financial</option><option value="technical">Technical</option><option value="legal">Legal</option><option value="authorization">Authorization</option><option value="image">Image</option><option value="other">Other</option></select>
+          <input name="file" type="file">
+          <button type="submit">Upload</button>
+        </form>
+        <div id="fileList"></div>
+      </section>
+      <section>
+        <p class="eyebrow">PUBLIC VIEW</p>
+        <h2>What visitors see</h2>
+        <p class="muted">Only approved teaser fields and explicitly approved images are returned by the public API. Seller identities, internal notes, vessel IMO numbers, aircraft registration details and private documents remain internal.</p>
+      </section>
+    </aside>
+  </main>
+
+  <script src="./app.js" defer></script>
+</body>
+</html>
