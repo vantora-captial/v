@@ -25,6 +25,7 @@ jobs:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       PREVIEW_PROJECT: vantora-site-preview
+      PREVIEW_BRANCH: trilingual-public-site
       VANTORA_OPPORTUNITY_MODE: presentation
     steps:
       - name: Checkout current feature branch
@@ -70,7 +71,7 @@ jobs:
         run: |
           set -eu
           if ! npx --yes wrangler@4 pages project list | grep -q "$PREVIEW_PROJECT"; then
-            npx --yes wrangler@4 pages project create "$PREVIEW_PROJECT" --production-branch ai-sales-redesign
+            npx --yes wrangler@4 pages project create "$PREVIEW_PROJECT" --production-branch "$PREVIEW_BRANCH"
           fi
 
       - name: Deploy preview
@@ -80,23 +81,25 @@ jobs:
           set -o pipefail
           npx --yes wrangler@4 pages deploy preview-dist \
             --project-name "$PREVIEW_PROJECT" \
-            --branch trilingual-public-site \
+            --branch "$PREVIEW_BRANCH" \
             --commit-hash "$GITHUB_SHA" 2>&1 | tee preview-deploy.txt
           preview_url=$(grep -Eo 'https://[^ ]+\.pages\.dev' preview-deploy.txt | tail -n 1 || true)
           if [ -z "$preview_url" ]; then
             echo "Preview deployment completed but no pages.dev URL was detected."
             exit 1
           fi
+          branch_url="https://${PREVIEW_BRANCH}.${PREVIEW_PROJECT}.pages.dev"
           echo "preview_url=$preview_url" >> "$GITHUB_OUTPUT"
+          echo "branch_url=$branch_url" >> "$GITHUB_OUTPUT"
           echo "### Vantora Trilingual Preview" >> "$GITHUB_STEP_SUMMARY"
-          echo "Stable review URL: https://${PREVIEW_PROJECT}.pages.dev/en/" >> "$GITHUB_STEP_SUMMARY"
+          echo "Stable review URL: ${branch_url}/en/" >> "$GITHUB_STEP_SUMMARY"
           echo "Deployment URL: $preview_url" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Verify stable trilingual preview
         shell: bash
         run: |
           set -eu
-          base="https://${PREVIEW_PROJECT}.pages.dev"
+          base="https://${PREVIEW_BRANCH}.${PREVIEW_PROJECT}.pages.dev"
           for attempt in 1 2 3 4 5 6; do
             en=$(curl --fail --silent --show-error "$base/en/" || true)
             zh=$(curl --fail --silent --show-error "$base/zh/" || true)
@@ -110,5 +113,5 @@ jobs:
             echo "Preview check attempt $attempt failed; retrying in 5 seconds..."
             sleep 5
           done
-          echo "Stable preview did not become ready in time."
+          echo "Stable branch preview did not become ready in time."
           exit 1
