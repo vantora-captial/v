@@ -10,6 +10,7 @@ import {
   renderAbout,
   renderContact
 } from "../site/templates.mjs";
+import { enhanceJapanesePage } from "../site/ja-sourcing.mjs";
 
 const outputRoot = resolve(process.env.VANTORA_BUILD_DIR || ".");
 const mode = process.env.VANTORA_OPPORTUNITY_MODE === "presentation" ? "presentation" : "live";
@@ -23,15 +24,19 @@ async function emit(path, content) {
   console.log(`built ${path}`);
 }
 
+function localized(lang, pageKey, html) {
+  return lang === "ja" ? enhanceJapanesePage(pageKey, html) : html;
+}
+
 await emit("index.html", renderRootRouter());
 
 for (const lang of langs) {
   const options = { mode, registryApi };
-  await emit(`${lang}/index.html`, renderHome(lang, options));
-  await emit(`${lang}/capabilities/index.html`, renderCapabilities(lang, options));
-  await emit(`${lang}/experience/index.html`, renderExperience(lang, options));
-  await emit(`${lang}/opportunities/index.html`, renderOpportunities(lang, options));
-  await emit(`${lang}/opportunities/detail/index.html`, renderOpportunityDetail(lang, options));
-  await emit(`${lang}/about/index.html`, renderAbout(lang, options));
-  await emit(`${lang}/contact/index.html`, renderContact(lang, options));
+  await emit(`${lang}/index.html`, localized(lang, "home", renderHome(lang, options)));
+  await emit(`${lang}/capabilities/index.html`, localized(lang, "capabilities", renderCapabilities(lang, options)));
+  await emit(`${lang}/experience/index.html`, localized(lang, "experience", renderExperience(lang, options)));
+  await emit(`${lang}/opportunities/index.html`, localized(lang, "opportunities", renderOpportunities(lang, options)));
+  await emit(`${lang}/opportunities/detail/index.html`, localized(lang, "opportunityDetail", renderOpportunityDetail(lang, options)));
+  await emit(`${lang}/about/index.html`, localized(lang, "about", renderAbout(lang, options)));
+  await emit(`${lang}/contact/index.html`, localized(lang, "contact", renderContact(lang, options)));
 }
