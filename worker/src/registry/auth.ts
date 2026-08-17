@@ -11,7 +11,8 @@ export type RegistryUser = { email: string; role: "admin" | "advisor" };
 
 type JwtHeader = { alg?: string; kid?: string };
 type JwtPayload = { aud?: string | string[]; exp?: number; email?: string };
-type Jwks = { keys: JsonWebKey[] };
+type AccessJwk = JsonWebKey & { kid?: string };
+type Jwks = { keys: AccessJwk[] };
 
 let cachedJwks: { value: Jwks; expiresAt: number } | null = null;
 
@@ -22,10 +23,13 @@ function decodeBase64UrlJson<T>(value: string): T {
   return JSON.parse(new TextDecoder().decode(bytes)) as T;
 }
 
-function decodeBase64UrlBytes(value: string): Uint8Array {
+function decodeBase64UrlBuffer(value: string): ArrayBuffer {
   const normalized = value.replace(/-/g, "+").replace(/_/g, "/");
   const padded = normalized.padEnd(Math.ceil(normalized.length / 4) * 4, "=");
-  return Uint8Array.from(atob(padded), (c) => c.charCodeAt(0));
+  const bytes = Uint8Array.from(atob(padded), (c) => c.charCodeAt(0));
+  const copy = new Uint8Array(bytes.byteLength);
+  copy.set(bytes);
+  return copy.buffer;
 }
 
 function normalizeTeamDomain(domain: string): string {
@@ -73,13 +77,13 @@ export async function requireRegistryUser(request: Request, env: RuntimeEnv): Pr
   if (!payload.email) throw new RegistryAuthError(401, "missing access email");
 
   const jwks = await getJwks(env);
-  const jwk = jwks.keys.find((key) => key.kid === header.kid);
+  const jwk = jwks.keys.find((candidate) => candidate.kid === header.kid);
   if (!jwk) throw new RegistryAuthError(401, "unknown access signing key");
   const key = await crypto.subtle.importKey("jwk", jwk, { name: "RSASSA-PKCS1-v1_5", hash: "SHA-256" }, false, ["verify"]);
   const valid = await crypto.subtle.verify(
     "RSASSA-PKCS1-v1_5",
     key,
-    decodeBase64UrlBytes(parts[2]),
+    decodeBase64UrlBuffer(parts[2]),
     new TextEncoder().encode(`${parts[0]}.${parts[1]}`)
   );
   if (!valid) throw new RegistryAuthError(401, "invalid access signature");
