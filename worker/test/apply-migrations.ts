@@ -1,7 +1,6 @@
 import { env } from "cloudflare:test";
 
 await env.REGISTRY_DB.exec(`
-PRAGMA foreign_keys = ON;
 CREATE TABLE IF NOT EXISTS project_sequences (
   category TEXT NOT NULL,
   year INTEGER NOT NULL,
