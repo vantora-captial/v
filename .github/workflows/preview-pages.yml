@@ -106,7 +106,8 @@ jobs:
             ja=$(curl --fail --silent --show-error "$base/ja/" || true)
             if printf '%s' "$en" | grep -q 'Cross-Border M&amp;A &amp; Strategic Investment in Japan' \
               && printf '%s' "$zh" | grep -q '專注日本的跨境併購與戰略投資' \
-              && printf '%s' "$ja" | grep -q '会社や事業のこれからを、'; then
+              && printf '%s' "$ja" | grep -q '会社や事業のこれからを、' \
+              && printf '%s' "$ja" | grep -q 'こんなお悩みはありませんか'; then
               echo "Preview checks passed: $base/en/ $base/zh/ $base/ja/"
               exit 0
             fi
