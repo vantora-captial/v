@@ -37,11 +37,10 @@ test("all localized homes load the deployed AI concierge hook", () => {
   }
 });
 
-test("localized homes use the approved M&A-led trilingual positioning", () => {
+test("EN and Traditional Chinese keep the approved M&A-led international positioning", () => {
   assert.match(en, /Cross-Border M&amp;A &amp; Strategic Investment in Japan/);
   assert.match(zh, /專注日本的跨境併購與戰略投資/);
-  assert.match(ja, /日本におけるクロスボーダーM&amp;A・戦略投資/);
-  for (const html of homes) {
+  for (const html of [en, zh]) {
     assert.doesNotMatch(html, /Access Japan Through Trusted Local Execution/);
     assert.match(html, /id="home-capabilities"/);
     assert.match(html, /id="home-experience"/);
@@ -53,18 +52,32 @@ test("localized homes use the approved M&A-led trilingual positioning", () => {
   }
 });
 
+test("Japanese home uses a native consultation-first positioning", () => {
+  assert.match(ja, /日本におけるクロスボーダーM&amp;A・戦略投資/);
+  assert.match(ja, /会社や事業のこれからを、/);
+  assert.match(ja, /こんなお悩みはありませんか/);
+  assert.match(ja, /Vantoraができること/);
+  assert.match(ja, /案件をどう進めるか/);
+  assert.match(ja, /まずは相談する/);
+  assert.match(ja, /初期相談可/);
+  assert.doesNotMatch(ja, /id="home-capabilities"/);
+  assert.match(ja, /class="ja-consultation-body"/);
+});
+
 test("Traditional Chinese and Japanese are standalone native pages", () => {
   assert.match(zh, /<html lang="zh-Hant"/);
   assert.match(zh, /討論日本併購或投資計畫/);
   assert.doesNotMatch(zh, /进入日本市场|查看日本精选机会/);
   assert.match(ja, /<html lang="ja"/);
-  assert.match(ja, /日本でのM&amp;A・投資について相談する/);
+  assert.match(ja, /まずは相談する/);
+  assert.doesNotMatch(ja, /日本でのM&amp;A・投資について相談する/);
 });
 
 test("brand scope stays Japan-wide with UPEX as secondary foundation", () => {
   assert.match(en, /Japan-focused|Japan-side|in Japan/);
   assert.doesNotMatch(en, /Tokyo-based cross-border advisory|Start a Private Discussion in Tokyo/);
   assert.match(en, /Vantora × UPEX|UPEX/);
+  assert.match(ja, /Vantora × UPEX/);
 });
 
 test("direct contact remains available independently of AI", () => {
