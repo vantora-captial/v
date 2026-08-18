@@ -49,7 +49,7 @@ test("localized pages include native metadata, canonical, hreflang and shared as
     const cases = [
       ["en/index.html", "en", "Cross-Border M&amp;A &amp; Strategic Investment in Japan"],
       ["zh/index.html", "zh-Hant", "專注日本的跨境併購與戰略投資"],
-      ["ja/index.html", "ja", "日本におけるクロスボーダーM&amp;A・戦略投資"]
+      ["ja/index.html", "ja", "会社や事業のこれからを、"]
     ];
     for (const [file, lang, hero] of cases) {
       const html = await read(dir, file);
@@ -71,10 +71,10 @@ test("localized pages include native metadata, canonical, hreflang and shared as
   } finally { await rm(dir, { recursive: true, force: true }); }
 });
 
-test("homepage section order and M&A priority match approved journey", async () => {
+test("international EN/ZH homes keep the approved capability-led journey", async () => {
   const dir = await build();
   try {
-    for (const lang of ["en", "zh", "ja"]) {
+    for (const lang of ["en", "zh"]) {
       const html = await read(dir, `${lang}/index.html`);
       const ids = ["home-capabilities", "home-experience", "home-opportunities", "home-process", "home-why", "home-contact"];
       let prior = -1;
@@ -89,6 +89,29 @@ test("homepage section order and M&A priority match approved journey", async () 
   } finally { await rm(dir, { recursive: true, force: true }); }
 });
 
+test("Japanese home uses the approved consultation-first journey instead of the international capability sequence", async () => {
+  const dir = await build();
+  try {
+    const ja = await read(dir, "ja/index.html");
+    const ordered = [
+      "こんなお悩みはありませんか",
+      "Vantoraができること",
+      "海外との選択肢を広げる",
+      "案件をどう進めるか",
+      "支援内容から見る案件経験",
+      "まずはご相談ください"
+    ];
+    let prior = -1;
+    for (const label of ordered) {
+      const next = ja.indexOf(label);
+      assert.ok(next > prior, `ja: ${label} must follow previous Japanese section`);
+      prior = next;
+    }
+    assert.match(ja, /class="ja-consultation-body"/);
+    assert.doesNotMatch(ja, /id="home-capabilities"/);
+  } finally { await rm(dir, { recursive: true, force: true }); }
+});
+
 test("presentation build labels samples as non-live", async () => {
   const dir = await build("presentation");
   try {
@@ -98,5 +121,7 @@ test("presentation build labels samples as non-live", async () => {
     assert.match(zh, /展示樣本 — 非即時委託案件/);
     const ja = await read(dir, "ja/opportunities/index.html");
     assert.match(ja, /表示サンプル — 実案件ではありません/);
+    const jaHome = await read(dir, "ja/index.html");
+    assert.match(jaHome, /表示サンプル — 実案件ではありません/);
   } finally { await rm(dir, { recursive: true, force: true }); }
 });
