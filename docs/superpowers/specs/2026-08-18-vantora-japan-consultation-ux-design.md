@@ -2,7 +2,7 @@
 
 Date: 2026-08-18
 Branch: `trilingual-public-site`
-Status: Direction approved in conversation; written-spec review pending
+Status: Approved for implementation
 
 ## 1. Goal
 
