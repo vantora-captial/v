@@ -13,6 +13,7 @@ on:
       - "worker/**"
       - "assets/ai-sales*"
       - "assets/site*"
+      - "assets/ja-*"
       - "assets/opportunities.mjs"
       - "assets/presentation-opportunities.mjs"
       - "assets/contact.mjs"
